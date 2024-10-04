@@ -24,10 +24,10 @@ export async function POST(req: NextRequest) {
       mode: "payment",
       shipping_address_collection: {
         allowed_countries: ["US", "CA"],
-      },
+  
       shipping_options: [
-        { shipping_rate: "shr_1MfufhDgraNiyvtnDGef2uwK" },
-        { shipping_rate: "shr_1OpHFHDgraNiyvtnOY4vDjuY" },
+        { shipping_rate: "shr_1N7G0jSIBFaq0cB1v3YuJGDY" },
+        
       ],
       line_items: cartItems.map((cartItem: any) => ({
         price_data: {
