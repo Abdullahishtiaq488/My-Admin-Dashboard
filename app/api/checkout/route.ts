@@ -23,11 +23,10 @@ export async function POST(req: NextRequest) {
       payment_method_types: ["card"],
       mode: "payment",
       shipping_address_collection: {
-        allowed_countries: ["US", "CA"],
-  
+        allowed_countries: ["US", "CA"], // Closing bracket is needed here
+      },
       shipping_options: [
         { shipping_rate: "shr_1N7G0jSIBFaq0cB1v3YuJGDY" },
-        
       ],
       line_items: cartItems.map((cartItem: any) => ({
         price_data: {
