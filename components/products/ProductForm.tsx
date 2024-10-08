@@ -30,6 +30,7 @@ const formSchema = z.object({
   description: z.string().min(2).max(500).trim(),
   media: z.array(z.string()),
   category: z.string(),
+  subCategory: z.string(),
   collections: z.array(z.string()),
   tags: z.array(z.string()),
   sizes: z.array(z.string()),
@@ -239,6 +240,23 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input
                       placeholder="Category"
+                      {...field}
+                      onKeyDown={handleKeyPress}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-1" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="subCategory"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Sub-Category</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Sub-Category"
                       {...field}
                       onKeyDown={handleKeyPress}
                     />
