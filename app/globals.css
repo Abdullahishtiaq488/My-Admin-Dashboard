@@ -1,7 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
- 
+@import 'tailwindcss';
+
+@theme {
+  --text-*: initial;
+  --text-heading1-bold: 50px;
+  --text-heading1-bold--line-height: 100%;
+  --text-heading1-bold--font-weight: 700;
+  --text-heading2-bold: 30px;
+  --text-heading2-bold--line-height: 100%;
+  --text-heading2-bold--font-weight: 700;
+  --text-heading3-bold: 24px;
+  --text-heading3-bold--line-height: 100%;
+  --text-heading3-bold--font-weight: 700;
+  --text-heading4-bold: 20px;
+  --text-heading4-bold--line-height: 100%;
+  --text-heading4-bold--font-weight: 700;
+  --text-body-bold: 18px;
+  --text-body-bold--line-height: 100%;
+  --text-body-bold--font-weight: 700;
+  --text-body-semibold: 18px;
+  --text-body-semibold--line-height: 100%;
+  --text-body-semibold--font-weight: 600;
+  --text-body-medium: 18px;
+  --text-body-medium--line-height: 100%;
+  --text-body-medium--font-weight: 500;
+  --text-base-bold: 16px;
+  --text-base-bold--line-height: 100%;
+  --text-base-bold--font-weight: 600;
+  --text-base-medium: 16px;
+  --text-base-medium--line-height: 100%;
+  --text-base-medium--font-weight: 500;
+
+  --color-white-1: #f8f8f8;
+  --color-grey-1: #616161;
+  --color-grey-2: #e5e7eb;
+  --color-blue-1: #005ebe;
+  --color-blue-2: #e9f5fe;
+  --color-blue-3: #f5f7f9;
+  --color-red-1: #ff0000;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
 html,
 body,
 :root {
