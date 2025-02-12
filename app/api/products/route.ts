@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 import { connectToDB } from "@/lib/mongoDB";
@@ -7,7 +7,7 @@ import Collection from "@/lib/models/Collection";
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
