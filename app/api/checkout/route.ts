@@ -1,27 +1,36 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { stripe } from "@/lib/stripe"
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": process.env.ECOMMERCE_STORE_URL || "*",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-  "Access-Control-Allow-Credentials": "true",
-}
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin")
+  const allowedOrigin = origin === process.env.ECOMMERCE_STORE_URL ? origin : "*"
 
-export async function OPTIONS() {
-  return NextResponse.json({}, { headers: corsHeaders })
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": allowedOrigin,
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Credentials": "true",
+    },
+  })
 }
 
 export async function POST(req: NextRequest) {
-  if (req.method === "OPTIONS") {
-    return NextResponse.json({}, { headers: corsHeaders })
-  }
+  const origin = req.headers.get("origin")
+  const allowedOrigin = origin === process.env.ECOMMERCE_STORE_URL ? origin : "*"
 
   try {
     const { cartItems, customer } = await req.json()
 
     if (!cartItems || !customer) {
-      return new NextResponse("Not enough data to checkout", { status: 400, headers: corsHeaders })
+      return new NextResponse("Not enough data to checkout", {
+        status: 400,
+        headers: {
+          "Access-Control-Allow-Origin": allowedOrigin,
+          "Access-Control-Allow-Credentials": "true",
+        },
+      })
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -53,13 +62,20 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(session, {
       headers: {
-        ...corsHeaders,
+        "Access-Control-Allow-Origin": allowedOrigin,
+        "Access-Control-Allow-Credentials": "true",
         "Content-Type": "application/json",
       },
     })
   } catch (err) {
     console.log("[checkout_POST]", err)
-    return new NextResponse("Internal Server Error", { status: 500, headers: corsHeaders })
+    return new NextResponse("Internal Server Error", {
+      status: 500,
+      headers: {
+        "Access-Control-Allow-Origin": allowedOrigin,
+        "Access-Control-Allow-Credentials": "true",
+      },
+    })
   }
 }
 
