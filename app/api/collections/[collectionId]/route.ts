@@ -5,6 +5,7 @@ import { connectToDB } from "@/lib/mongoDB";
 import Collection from "@/lib/models/Collection";
 import Product from "@/lib/models/Product";
 
+
 export const GET = async (
   req: NextRequest,
   { params }: { params: { collectionId: string } }
@@ -73,7 +74,7 @@ export const DELETE = async (
   { params }: { params: { collectionId: string } }
 ) => {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
