@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter } from 'next/font/google';
 import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
-import LeftSideBar from "@/components/layout/LeftSideBar";
-import TopBar from "@/components/layout/TopBar";
+import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ToasterProvider } from "@/lib/ToasterProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,11 +22,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
+          
           <ToasterProvider />
-          <div className="flex max-lg:flex-col text-grey-1">
-            <LeftSideBar />
-            <TopBar />
-            <div className="flex-1">{children}</div>
+          <div className="flex h-screen">
+            <AppSidebar />
+            <div className="flex-1 overflow-auto">
+              {children}
+            </div>
           </div>
         </body>
       </html>
