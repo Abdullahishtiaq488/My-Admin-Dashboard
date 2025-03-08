@@ -3,12 +3,13 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Borcelle - Admin Auth",
-  description: "Admin dashboard to manage Borcelle's data",
+  title: "Sana Safinaz - Admin Auth",
+  description: "Admin dashboard to manage Sana Safinaz's data",
 };
 
 export default function RootLayout({
@@ -16,6 +17,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+
+  
   return (
     <ClerkProvider>
       <html lang="en">

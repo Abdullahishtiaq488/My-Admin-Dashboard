@@ -30,6 +30,7 @@ const formSchema = z.object({
   description: z.string().min(2).max(500).trim(),
   media: z.array(z.string()),
   category: z.string(),
+  subcategory: z.string().optional(),
   collections: z.array(z.string()),
   tags: z.array(z.string()),
   sizes: z.array(z.string()),
@@ -70,23 +71,23 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
     resolver: zodResolver(formSchema),
     defaultValues: initialData
       ? {
-          ...initialData,
-          collections: initialData.collections.map(
-            (collection) => collection._id
-          ),
-        }
+        ...initialData,
+        collections: initialData.collections.map(
+          (collection) => collection._id
+        ),
+      }
       : {
-          title: "",
-          description: "",
-          media: [],
-          category: "",
-          collections: [],
-          tags: [],
-          sizes: [],
-          colors: [],
-          price: 0.1,
-          expense: 0.1,
-        },
+        title: "",
+        description: "",
+        media: [],
+        category: "",
+        collections: [],
+        tags: [],
+        sizes: [],
+        colors: [],
+        price: 0.1,
+        expense: 0.1,
+      },
   });
 
   const handleKeyPress = (
@@ -239,6 +240,23 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input
                       placeholder="Category"
+                      {...field}
+                      onKeyDown={handleKeyPress}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-1" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="subcategory"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Subcategory</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Subcategory"
                       {...field}
                       onKeyDown={handleKeyPress}
                     />
